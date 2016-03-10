@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="avery">
+<head>
+  <meta charset="UTF-8">
+  <title>Avery | Earthquake Rescue</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <link rel="stylesheet" href="./node_modules/angular-material/angular-material.css">
+  <link rel="stylesheet" href="./public/assets/styles/custom.css">
+</head>
+<body ng-controller="mainController as vm">
+
+  <section layout="row" flex>
+    <md-sidenav
+        class="sidebar"
+        md-component-id="sidebar"
+        md-disable-backdrop
+        md-whiteframe="4">
+      <md-toolbar class="md-theme-indigo">
+        <h1 class="md-toolbar-tools">Menu</h1>
+      </md-toolbar>
+      <md-content layout-padding>
+        content for sidebar
+      </md-content>
+    </md-sidenav>
+    <md-content flex layout>
+      <div layout="column" layout-fill layout-align="top">
+        <div>
+          <md-button class="md-fab md-mini" ng-click="vm.toggleSidebar()">
+            <md-icon md-svg-src="./public/assets/img/menu_icon.svg"></md-icon>
+          </md-button>
+        </div>
+      </div>
+    </md-content>
+  </section>
+
+  <script src="./node_modules/angular/angular.js"></script>
+	<script src="./node_modules/angular-aria/angular-aria.js"></script>
+	<script src="./node_modules/angular-animate/angular-animate.js"></script>
+  <script src="./node_modules/angular-material/angular-material.js"></script>
+	<script src="./public/assets/js/main.js"></script>
+</body>
+</html>
