@@ -18,8 +18,28 @@
       <md-toolbar class="md-theme-indigo">
         <h1 class="md-toolbar-tools">Menu</h1>
       </md-toolbar>
-      <md-content layout-padding>
-        add all the switches here
+      <md-content layout-fill>
+        <md-list>
+          <md-list-item>
+            <md-icon md-svg-icon="./public/assets/img/people.svg"></md-icon>
+            <p>People Found: {{ vm.peopleCount }}</p>
+          </md-list-item>
+          <md-list-item ng-click="vm.toggleSensor('camera')">
+            <md-icon md-svg-icon="./public/assets/img/camera.svg"></md-icon>
+            <p>CAMERA</p>
+            <md-switch ng-model="vm.camera" ng-click="vm.toggleSensor('camera')"></md-switch>
+          </md-list-item>
+          <md-list-item ng-click="vm.toggleSensor('gas')">
+            <md-icon md-svg-icon="./public/assets/img/gas.svg"></md-icon>
+            <p>GAS SENSOR</p>
+            <md-switch ng-model="vm.gas" ng-click="vm.toggleSensor('gas')"></md-switch>
+          </md-list-item>
+          <md-list-item ng-click="vm.toggleSensor('motion')">
+            <md-icon md-svg-icon="./public/assets/img/motion.svg"></md-icon>
+            <p>MOTION SENSOR</p>
+            <md-switch ng-model="vm.motion" ng-click="vm.toggleSensor('motion')"></md-switch>
+          </md-list-item>
+        </md-list>
       </md-content>
     </md-sidenav>
     <md-content flex layout>
