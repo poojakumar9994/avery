@@ -12,7 +12,7 @@ board.on('ready', function () {
   });
 });
 
-board.on('stop', function () {
+board.on('exit', function () {
   led.off();
 });
 
