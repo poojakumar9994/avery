@@ -9,11 +9,13 @@ function robotService ($http) {
 
   service.move = function (direction) {
     $http
-      .post('/robot/move', direction)
+      .post('/robot/move', {
+        direction: direction
+      })
       .then(function (res) {
-        console.log('move success', res);
+        console.log(res.data);
       }, function (err) {
-        console.log('move failed', err);
+        console.log(err);
       });
   };
 }
