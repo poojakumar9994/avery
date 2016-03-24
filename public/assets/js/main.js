@@ -4,7 +4,7 @@ angular
   .module('avery', ['ngMaterial'])
   .controller('mainController', mainController);
 
-function mainController ($mdSidenav) {
+function mainController ($mdSidenav, robotService) {
   var vm = this;
 
   vm.peopleCount = 0;
@@ -33,22 +33,12 @@ function mainController ($mdSidenav) {
     vm.joystick = nipplejs.create(options);
 
     vm.joystick.on('dir', function (e, data) {
-      console.log(data.direction.angle);
-      var bg = document.getElementById('content');
-      switch (data.direction.angle) {
-        case 'up':
-          bg.style.backgroundPosition = 'top';
-          break;
-        case 'right':
-          bg.style.backgroundPosition = 'right';
-          break;
-        case 'down':
-          bg.style.backgroundPosition = 'bottom';
-          break;
-        case 'left':
-          bg.style.backgroundPosition = 'left';
-          break;
-      }
+      var direction = data.direction.angle;
+      robotService.move(direction);
+    });
+
+    vm.joystick.on('end', function (e, data) {
+      robotService.move('stop');
     });
   }
 
