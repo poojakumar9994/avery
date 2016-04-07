@@ -15,11 +15,11 @@
     "angular-aria": "^1.5.0",
     "angular-material": "^1.0.6",
     "angular-messages": "^1.5.0",
-    "body-parser": "^1.15.0",
     "express": "^4.13.4",
     "johnny-five": "^0.9.34",
     "nipplejs": "^0.6.2",
-    "raspicam": "^0.2.13"
+    "raspicam": "^0.2.13",
+    "socket.io": "^1.4.5"
   },
   "devDependencies": {}
 }

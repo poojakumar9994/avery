@@ -1,12 +1,10 @@
 var express = require('express');
-var bodyParser = require('body-parser');
-var robot = require('./robot.js');
-
 var app = express();
-var PORT = 8080;
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+var setupRobot = require('./robot.js');
+var PORT = 8080;
 
 app.use(express.static(__dirname));
 
@@ -14,8 +12,8 @@ app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/index.html');
 });
 
-app.use('/robot', robot);
+setupRobot(io);
 
-app.listen(PORT, function () {
+http.listen(PORT, function () {
   console.log('Avery listening on port ' + PORT);
 });

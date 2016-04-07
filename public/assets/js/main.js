@@ -1,11 +1,12 @@
-/* global angular nipplejs */
+/* global angular nipplejs io */
 
 angular
   .module('avery', ['ngMaterial'])
   .controller('mainController', mainController);
 
-function mainController ($mdSidenav, robotService) {
+function mainController ($mdSidenav, $scope) {
   var vm = this;
+  var socket = io();
 
   vm.peopleCount = 0;
   vm.camera = false;
@@ -17,7 +18,12 @@ function mainController ($mdSidenav, robotService) {
 
   function activate () {
     setupJoystick();
+    setupSocketListeners();
   }
+
+  vm.toggleSidebar = function () {
+    $mdSidenav('sidebar').toggle();
+  };
 
   function setupJoystick () {
     var options = {
@@ -34,19 +40,29 @@ function mainController ($mdSidenav, robotService) {
 
     vm.joystick.on('dir', function (e, data) {
       var direction = data.direction.angle;
-      robotService.move(direction);
+      socket.emit('move', direction);
     });
 
     vm.joystick.on('end', function (e, data) {
-      robotService.move('stop');
+      socket.emit('move', 'stop');
     });
   }
 
-  vm.toggleSidebar = function () {
-    $mdSidenav('sidebar').toggle();
-  };
-
   vm.toggleSensor = function (sensor) {
     vm[sensor] = !vm[sensor];
+    switch (sensor) {
+      case 'camera':
+        socket.emit('camera:status', vm.camera);
+        break;
+    }
   };
+
+  function setupSocketListeners () {
+    var $content = document.getElementById('content');
+
+    socket.on('camera:picture', function (fileUrl) {
+      $content.style.backgroundImage = 'url("/public/assets/img/' + fileUrl + '")';
+      $scope.apply();
+    });
+  }
 }

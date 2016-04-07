@@ -2,7 +2,7 @@
   height: 100vh;
   background-image: url('../img/motion_image.jpg');
   background-position: center;
-  background-size: 110% 110%;
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
