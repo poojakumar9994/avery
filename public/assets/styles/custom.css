@@ -1,9 +1,13 @@
 #content {
   height: 100vh;
-  background-image: url('../img/motion_image.jpg');
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+}
+
+#motion-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .sidebar {

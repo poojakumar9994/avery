@@ -9,7 +9,7 @@ function setupRobot (io) {
   board.on('ready', function () {
     motorRight = new five.Motor(motorConfigs.M1);
     motorLeft = new five.Motor(motorConfigs.M2);
-    camera = new RaspiCam({ mode: 'timelapse', output: './public/assets/img/motion_image.jpg', encoding: 'jpg', timelapse: 40, timeout: 0, quality: 100, width: 1920, height: 1080 });
+    camera = new RaspiCam({ mode: 'timelapse', output: './public/assets/img/motion_image.jpg', encoding: 'jpg', timelapse: 30, timeout: 0, quality: 100, width: 1920, height: 1080 });
 
     io.on('connection', function (socket) {
       console.log('a client has connected');
