@@ -10,7 +10,7 @@ camera = new RaspiCam({
   mode: 'timelapse',
   output: './public/assets/img/motion_image.jpg',
   encoding: 'jpg',
-  timelapse: 40,
+  timelapse: 0,
   timeout: 5000,
   quality: 100
 });
