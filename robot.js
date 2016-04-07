@@ -1,22 +1,39 @@
 var robot = require('express').Router();
 var five = require('johnny-five');
+var RaspiCam = require('raspicam');
 
 var board = new five.Board();
 var motorConfigs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V1;
-
-var led, motorRight, motorLeft;
+var camera, motorRight, motorLeft;
 
 board.on('ready', function () {
-  led = new five.Led(13);
   motorRight = new five.Motor(motorConfigs.M1);
   motorLeft = new five.Motor(motorConfigs.M2);
+  camera = new RaspiCam({
+    mode: 'timelapse',
+    output: './timelapse/image_%06d.jpg', // image_000001.jpg, image_000002.jpg,...
+    encoding: 'jpg',
+    timelapse: 1000, // take a picture every 3 seconds
+    timeout: 2000 // take a total of 4 pictures over 12 seconds
+  });
 
-  robot.post('/led', function (req, res) {
-    led.blink();
+  camera.on('start', function (err, timestamp) {
+    console.log('timelapse started at ' + timestamp);
+  });
+
+  camera.on('read', function (err, timestamp, filename) {
+    console.log('timelapse image captured with filename: ' + filename);
+  });
+
+  camera.on('exit', function (timestamp) {
+    console.log('timelapse child process has exited');
+  });
+
+  camera.on('stop', function (err, timestamp) {
+    console.log('timelapse child process has been stopped at ' + timestamp);
   });
 
   robot.post('/move', function (req, res) {
-    console.log(req.body);
     var direction = req.body.direction;
     switch (direction) {
       case 'up':
@@ -42,10 +59,17 @@ board.on('ready', function () {
     }
     res.send('moving ' + direction);
   });
+
+  robot.get('/camera', function (req, res) {
+    camera.start();
+    // setTimeout(function () {
+    //   camera.stop();
+    // }, 1000);
+  });
 });
 
 board.on('exit', function () {
-  led.off();
+  camera.stop();
   motorRight.stop();
   motorLeft.stop();
 });
