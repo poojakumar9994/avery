@@ -8,10 +8,11 @@ var camera, motorRight, motorLeft;
 
 camera = new RaspiCam({
   mode: 'timelapse',
-  output: './timelapse/image_%06d.jpg', // image_000001.jpg, image_000002.jpg,...
+  output: './public/assets/img/motion_image.jpg',
   encoding: 'jpg',
-  timelapse: 1000, // take a picture every 3 seconds
-  timeout: 2000 // take a total of 4 pictures over 12 seconds
+  timelapse: 40,
+  timeout: 5000,
+  quality: 100
 });
 
 camera.on('start', function (err, timestamp) {
