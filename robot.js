@@ -1,5 +1,6 @@
 var five = require('johnny-five');
 var RaspiCam = require('raspicam');
+var fs = require('fs');
 
 function setupRobot (io) {
   var board = new five.Board();
@@ -42,7 +43,11 @@ function setupRobot (io) {
       socket.on('camera:status', function (status) {
         if (status) {
           camera.on('read', function (yerror, timestamp, filename) {
-            io.emit('camera:picture', 'motion_image.jpg?_t=' + timestamp);
+            fs.readFile(__dirname + '/public/assets/img/motion_image.jpg', 'base64', function (err, data) {
+              if (err) console.log(err);
+              // io.emit('camera:picture', 'motion_image.jpg?_t=' + timestamp);
+              io.emit('camera:picture', data);
+            });
           });
           camera.start();
         } else {

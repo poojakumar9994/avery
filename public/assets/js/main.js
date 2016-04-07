@@ -61,8 +61,8 @@ function mainController ($mdSidenav, $scope) {
     var $motionImage = document.getElementById('motion-image');
 
     socket.on('camera:picture', function (fileUrl) {
-      $motionImage.src = '/public/assets/img/' + fileUrl;
-      $scope.$apply();
+      // $motionImage.src = '/public/assets/img/' + fileUrl;
+      $motionImage.src = fileUrl;
     });
   }
 }
