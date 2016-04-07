@@ -58,11 +58,13 @@ function mainController ($mdSidenav, $scope) {
   };
 
   function setupSocketListeners () {
-    var $content = document.getElementById('content');
+    var $content = document.getElementById('motion-image');
 
     socket.on('camera:picture', function (fileUrl) {
-      $content.style.backgroundImage = 'url("/public/assets/img/' + fileUrl + '")';
-      $scope.$apply();
+      // $content.style.backgroundImage = 'url("/public/assets/img/' + fileUrl + '")';
+      $scope.$apply(function () {
+        $content.src = '/public/assets/img/' + fileUrl;
+      });
     });
   }
 }
