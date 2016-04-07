@@ -11,7 +11,7 @@ camera = new RaspiCam({
   output: './public/assets/img/motion_image.jpg',
   encoding: 'jpg',
   timelapse: 0,
-  timeout: 5000,
+  timeout: 0,
   quality: 100
 });
 
@@ -65,9 +65,9 @@ camera.on('stop', function (err, timestamp) {
 
 robot.get('/camera', function (req, res) {
   camera.start();
-  // setTimeout(function () {
-  //   camera.stop();
-  // }, 1000);
+  setTimeout(function () {
+    camera.stop();
+  }, 4000);
 });
 
 // board.on('exit', function () {
