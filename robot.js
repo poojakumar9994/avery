@@ -9,7 +9,7 @@ function setupRobot (io) {
   board.on('ready', function () {
     motorRight = new five.Motor(motorConfigs.M1);
     motorLeft = new five.Motor(motorConfigs.M2);
-    camera = new RaspiCam({ mode: 'timelapse', output: './public/assets/img/motion_image.jpg', encoding: 'jpg', timelapse: 0, timeout: 0, quality: 100, width: 1920, height: 1080 });
+    camera = new RaspiCam({ mode: 'timelapse', output: './public/assets/img/motion_image.jpg', encoding: 'jpg', timelapse: 1000, timeout: 0, quality: 100, width: 1920, height: 1080 });
 
     io.on('connection', function (socket) {
       console.log('a client has connected');
@@ -42,8 +42,7 @@ function setupRobot (io) {
       socket.on('camera:status', function (status) {
         if (status) {
           camera.on('read', function (yerror, timestamp, filename) {
-            console.log(filename + '?_t=' + timestamp);
-            io.emit('camera:picture', filename + '?_t=' + timestamp);
+            io.emit('camera:picture', 'motion_image.jpg?_t=' + timestamp);
           });
           camera.start();
         } else {

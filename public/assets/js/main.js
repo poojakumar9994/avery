@@ -62,7 +62,7 @@ function mainController ($mdSidenav, $scope) {
 
     socket.on('camera:picture', function (fileUrl) {
       $content.style.backgroundImage = 'url("/public/assets/img/' + fileUrl + '")';
-      $scope.apply();
+      $scope.$apply();
     });
   }
 }
