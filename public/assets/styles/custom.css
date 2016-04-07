@@ -1,6 +1,6 @@
 #content {
   height: 100vh;
-  background-image: url('https://images.unsplash.com/photo-1444419988131-046ed4e5ffd6?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&s=6424250512c51ef0e3e6f43fad174934');
+  background-image: url('../img/motion_image.jpg');
   background-position: center;
   background-size: 110% 110%;
   background-repeat: no-repeat;
