@@ -1,9 +1,9 @@
 var robot = require('express').Router();
-var five = require('johnny-five');
+// var five = require('johnny-five');
 var RaspiCam = require('raspicam');
 
-var board = new five.Board();
-var motorConfigs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V1;
+// var board = new five.Board();
+// var motorConfigs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V1;
 var camera, motorRight, motorLeft;
 
 camera = new RaspiCam({
@@ -69,10 +69,10 @@ robot.get('/camera', function (req, res) {
   // }, 1000);
 });
 
-board.on('exit', function () {
-  camera.stop();
-  motorRight.stop();
-  motorLeft.stop();
-});
+// board.on('exit', function () {
+//   camera.stop();
+//   motorRight.stop();
+//   motorLeft.stop();
+// });
 
 module.exports = robot;
