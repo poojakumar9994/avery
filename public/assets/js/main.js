@@ -50,17 +50,17 @@ function mainController ($mdSidenav, $scope) {
 
   vm.toggleSensor = function (sensor) {
     vm[sensor] = !vm[sensor];
-    switch (sensor) {
-      case 'camera':
-        socket.emit('camera:status', vm.camera);
-        break;
-    }
+    socket.emit(sensor + ':status', vm[sensor]);
   };
 
   function setupSocketListeners () {
     var $motionImage = document.getElementById('motion-image');
-    socket.on('camera:picture', function (fileUrl) {
+    socket.on('camera:change', function (fileUrl) {
       $motionImage.src = '/public/assets/img/' + fileUrl;
+    });
+
+    socket.on('gas:change', function (value) {
+      console.log(value);
     });
   }
 }

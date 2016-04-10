@@ -4,15 +4,36 @@ var RaspiCam = require('raspicam');
 function setupRobot (io) {
   var board = new five.Board();
   var motorConfigs = five.Motor.SHIELD_CONFIGS.ADAFRUIT_V1;
-  var camera, motorRight, motorLeft;
+  var camera, gas, motorRight, motorLeft;
 
   board.on('ready', function () {
+    camera = new RaspiCam({ mode: 'timelapse', output: './public/assets/img/motion_image.jpg', encoding: 'jpg', timelapse: 30, timeout: 0, quality: 100, width: 1920, height: 1080 });
+    gas = { pin: new five.Pin(7), sensor: new five.Sensor({ pin: 'A0', threshold: 1 }) };
     motorRight = new five.Motor(motorConfigs.M1);
     motorLeft = new five.Motor(motorConfigs.M2);
-    camera = new RaspiCam({ mode: 'timelapse', output: './public/assets/img/motion_image.jpg', encoding: 'jpg', timelapse: 30, timeout: 0, quality: 100, width: 1920, height: 1080 });
 
     io.on('connection', function (socket) {
-      console.log('a client has connected');
+      console.log('connected', socket.id);
+
+      socket.on('camera:status', function (status) {
+        if (status) {
+          camera.start();
+          camera.on('read', cameraChange);
+        } else {
+          camera.stop();
+          camera.removeListener('read', cameraChange);
+        }
+      });
+
+      socket.on('gas:status', function (status) {
+        if (status) {
+          gas.pin.high();
+          gas.sensor.scale(0, 100).on('change', gasChange);
+        } else {
+          gas.pin.low();
+          gas.sensor.removeListener('change', gasChange);
+        }
+      });
 
       socket.on('move', function (direction) {
         switch (direction) {
@@ -39,20 +60,19 @@ function setupRobot (io) {
         }
       });
 
-      socket.on('camera:status', function (status) {
-        if (status) {
-          camera.on('read', function (yerror, timestamp, filename) {
-            io.emit('camera:picture', 'motion_image.jpg?_t=' + timestamp);
-          });
-          camera.start();
-        } else {
-          camera.stop();
-        }
-      });
-
       socket.on('disconnect', function () {
+        console.log('disconnected', socket.id);
         stopEverything();
       });
+
+      function cameraChange (yerror, timestamp, filename) {
+        socket.emit('camera:change', 'motion_image.jpg?_t=' + timestamp);
+      }
+
+      function gasChange () {
+        console.log(this.value);
+        socket.emit('gas:change', this.value);
+      }
     });
   });
 
@@ -61,9 +81,10 @@ function setupRobot (io) {
   });
 
   function stopEverything () {
-    camera.stop();
-    motorRight.stop();
-    motorLeft.stop();
+    camera.stop ? camera.stop() : null;
+    gas.pin.low ? gas.pin.low() : null;
+    motorRight.stop ? motorRight.stop() : null;
+    motorLeft.stop ? motorLeft.stop() : null;
   }
 }
 
