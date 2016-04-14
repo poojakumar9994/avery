@@ -39,37 +39,12 @@ function setupRobot (io) {
       socket.on('motion:status', function (status) {
         if (status) {
           console.log('buzzer');
-          buzzer.play({
-    // song is composed by an array of pairs of notes and beats
-    // The first argument is the note (null means "no note")
-    // The second argument is the length of time (beat) of the note (or non-note)
-          song: [
-            ["C4", 1 / 4],
-            ["D4", 1 / 4],
-            ["F4", 1 / 4],
-            ["D4", 1 / 4],
-            ["A4", 1 / 4],
-            [null, 1 / 4],
-            ["A4", 1],
-            ["G4", 1],
-            [null, 1 / 2],
-            ["C4", 1 / 4],
-            ["D4", 1 / 4],
-            ["F4", 1 / 4],
-            ["D4", 1 / 4],
-            ["G4", 1 / 4],
-            [null, 1 / 4],
-            ["G4", 1],
-            ["F4", 1],
-            [null, 1 / 2]
-          ],
-          tempo: 100
-        });
+          buzzer.tone(480, 1000);
         }
-        else {
-          buzzer.noTone();
-        //  motion.removeListener();
-        }
+        else
+         {
+          buzzer.off();
+         }
       });
 
       socket.on('move', function (direction) {
@@ -122,7 +97,7 @@ function setupRobot (io) {
     gas.pin.low ? gas.pin.low() : null;
     motorRight.stop ? motorRight.stop() : null;
     motorLeft.stop ? motorLeft.stop() : null;
-    //buzzer.pin ? buzzer.low() : null;
+    buzzer.off ? buzzer.off() : null;
   }
 }
 
