@@ -50,6 +50,7 @@ function mainController ($mdSidenav, $scope) {
 
   vm.toggleSensor = function (sensor) {
     vm[sensor] = !vm[sensor];
+    //console.log('toggled ' + sensor);
     socket.emit(sensor + ':status', vm[sensor]);
   };
 
