@@ -11,7 +11,7 @@ function setupRobot (io) {
     gas = { pin: new five.Pin(7), sensor: new five.Sensor({ pin: 'A0', threshold: 1 }) };
     motorRight = new five.Motor(motorConfigs.M1);
     motorLeft = new five.Motor(motorConfigs.M2);
-    buzzer = new five.Piezo(3);
+    buzzer = { pin: new five.Pin(3) };
 
     io.on('connection', function (socket) {
       console.log('connected', socket.id);
@@ -40,6 +40,7 @@ function setupRobot (io) {
         if (status) {
           //motion.mode = 1;
           console.log('buzzer');
+          buzzer.high();
          /*buzzer.play({
     // song is composed by an array of pairs of notes and beats
     // The first argument is the note (null means "no note")
@@ -67,10 +68,10 @@ function setupRobot (io) {
           tempo: 100
         });*/
         //socket.emit("motion:change",{flag=1;})
-        buzzer.tone(480, 1000);
+      //  buzzer.tone(480, 1000);
         }
         else {
-          buzzer.noTone();
+          buzzer.low();
           //motion.mode = 0;
         //  motion.removeListener();
         }
