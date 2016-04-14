@@ -40,9 +40,6 @@ function setupRobot (io) {
         if (status) {
           //motion.mode = 1;
           console.log('buzzer');
-          this.repl.inject({
-          piezo: buzzer
-          });
          /*buzzer.play({
     // song is composed by an array of pairs of notes and beats
     // The first argument is the note (null means "no note")
