@@ -39,7 +39,7 @@ function setupRobot (io) {
       socket.on('motion:status', function (status) {
         if (status) {
           console.log('buzzer');
-          buzzer.tone(480, 1000);
+          buzzer.tone(480, 500);
         }
         else
          {
@@ -83,6 +83,11 @@ function setupRobot (io) {
 
       function gasChange () {
         console.log(this.value);
+        if(this.value >= 50)
+        {
+          console.log('buzzer');
+          buzzer.tone(480, 500);
+        }
         socket.emit('gas:change', this.value);
       }
     });
