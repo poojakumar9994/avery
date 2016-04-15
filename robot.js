@@ -86,8 +86,8 @@ function setupRobot (io) {
         console.log(this.value);
         if(this.value >= 5) {
           console.log('buzzer');
-          buzzer.tone(480, 500);
-          
+          buzzer.tone(480, 100);
+
         }
         socket.emit('gas:change', this.value);
       }
