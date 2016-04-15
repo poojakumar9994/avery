@@ -87,6 +87,7 @@ function setupRobot (io) {
         {
           console.log('buzzer');
           buzzer.tone(480, 500);
+          buzzer.off();
         }
         socket.emit('gas:change', this.value);
       }
