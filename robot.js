@@ -83,7 +83,7 @@ function setupRobot (io) {
 
       function gasChange () {
         console.log(this.value);
-        if(this.value >= 50)
+        if(this.value >= 5)
         {
           console.log('buzzer');
           buzzer.tone(480, 500);
