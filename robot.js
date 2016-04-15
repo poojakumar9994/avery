@@ -33,6 +33,7 @@ function setupRobot (io) {
         } else {
           gas.pin.low();
           gas.sensor.removeListener('change', gasChange);
+          buzzer.off();
         }
       });
 
@@ -83,10 +84,10 @@ function setupRobot (io) {
 
       function gasChange () {
         console.log(this.value);
-        if(this.value >= 5 && this.value < 6) {
+        if(this.value >= 5) {
           console.log('buzzer');
           buzzer.tone(480, 500);
-
+          
         }
         socket.emit('gas:change', this.value);
       }
