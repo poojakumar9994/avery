@@ -9,8 +9,8 @@ function setupRobot (io) {
   board.on('ready', function () {
     camera = new RaspiCam({ mode: 'timelapse', output: './public/assets/img/motion_image.jpg', encoding: 'jpg', timelapse: 30, timeout: 0, quality: 100, width: 1920, height: 1080 });
     gas = { pin: new five.Pin(7), sensor: new five.Sensor({ pin: 'A0', threshold: 1 }) };
-    motorRight = new five.Motor(motorConfigs.M1);
-    motorLeft = new five.Motor(motorConfigs.M2);
+    motorRight = new five.Motor(motorConfigs.M3);
+    motorLeft = new five.Motor(motorConfigs.M1);
     buzzer = new five.Piezo(3);
 
     io.on('connection', function (socket) {
