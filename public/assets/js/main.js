@@ -11,7 +11,7 @@ function mainController ($mdSidenav, $scope) {
   vm.peopleCount = 0;
   vm.camera = false;
   vm.gas = false;
-  vm.motion = false;
+  vm.buzzer = false;
   vm.joystick = null;
 
   activate();

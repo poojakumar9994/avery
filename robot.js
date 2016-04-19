@@ -37,7 +37,7 @@ function setupRobot (io) {
         }
       });
 
-      socket.on('motion:status', function (status) {
+      socket.on('buzzer:status', function (status) {
         if (status) {
           console.log('buzzer');
           buzzer.tone(480, 500);
