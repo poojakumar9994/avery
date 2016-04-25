@@ -59,12 +59,12 @@ function setupRobot (io) {
             motorLeft.reverse(255);
             break;
           case 'left':
-            motorRight.forward(255);
-           motorLeft.reverse(100);
+            motorRight.forward(260);
+           motorLeft.forward(100);
             break;
           case 'right':
-            motorRight.reverse(100);
-            motorLeft.forward(255);
+            motorRight.forward(100);
+            motorLeft.forward(260);
             break;
           case 'stop':
             motorLeft.stop();
