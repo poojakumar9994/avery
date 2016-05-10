@@ -41,11 +41,9 @@ function setupRobot (io) {
         if (status) {
           console.log('buzzer');
           buzzer.tone(480, 500);
-        }
-        else
-         {
+        } else {
           buzzer.off();
-         }
+        }
       });
 
       socket.on('move', function (direction) {
@@ -60,10 +58,10 @@ function setupRobot (io) {
             break;
           case 'left':
             motorRight.forward(260);
-           motorLeft.forward(100);
+            motorLeft.forward(10);
             break;
           case 'right':
-            motorRight.forward(100);
+            motorRight.forward(10);
             motorLeft.forward(260);
             break;
           case 'stop':
@@ -84,10 +82,9 @@ function setupRobot (io) {
 
       function gasChange () {
         console.log(this.value);
-        if(this.value >= 5) {
+        if (this.value >= 5) {
           console.log('buzzer');
           buzzer.tone(480, 100);
-
         }
         socket.emit('gas:change', this.value);
       }
